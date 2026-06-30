@@ -29,6 +29,44 @@ if (game) {
     document.querySelector(".wp-game-lead").textContent = game.lead;
     document.querySelector(".wp-game-text").textContent = game.desc;
 
+    document.querySelector(".wp-cta-buy").setAttribute("href", game.link);
+
+    // Roles: one pill per role this game involved. Hide the label if none.
+    const roleRow = document.querySelector(".wp-role-row");
+    const roleLabel = document.querySelector(".wp-roles-label");
+    if (game.roles && game.roles.length) {
+        roleRow.innerHTML = "";
+        game.roles.forEach((role) => {
+            const pill = document.createElement("span");
+            pill.className = "wp-role";
+            pill.textContent = role;
+            roleRow.appendChild(pill);
+        });
+    } else {
+        roleLabel.style.display = "none";
+        roleRow.style.display = "none";
+    }
+
+    // Screenshots: build one tile per screenshot. If the game has none, hide
+    // the whole section instead of leaving empty placeholder boxes.
+    const shotsSection = document.querySelector(".wp-shots-section");
+    const shotsScroll = document.querySelector(".wp-shots-scroll");
+
+    if (game.screens && game.screens.length) {
+        shotsScroll.innerHTML = ""; // drop the static placeholder tiles
+        game.screens.forEach((src) => {
+            const shot = document.createElement("div");
+            shot.className = "wp-shot";
+            shot.style.background = `url('${BASE}assets/${src}')`;
+            shot.style.backgroundSize = "cover";
+            shot.style.backgroundPosition = "center";
+            shot.style.backgroundRepeat = "no-repeat";
+            shotsScroll.appendChild(shot);
+        });
+    } else {
+        shotsSection.style.display = "none";
+    }
+
 }
 
 // Parallax scroll effect (same logic as home.js): shift the hero background
