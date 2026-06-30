@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+  
+    <div id="wp-main">
+
+      <!-- ===== NAV BAR ===== -->
+      <header id="wp-navheader">
+        <div id="wp-navbar">
+
+          <nav class="wp-nav wp-navL">
+            <a href="#wp-games" class="wp-navbutton">Games</a>
+            <a href="#about" class="wp-navbutton">About</a>
+          </nav>
+
+          <!-- logo -->
+          <a href="#" id="wp-logo">
+            <span class="wp-logomark">
+
+            </span>
+            <span class="wp-wordmark">Dior Zaverdino</span>
+          </a>
+           
+          <nav class="wp-nav wp-navR">
+            <a href="pages/contactpage.html" class="wp-navbutton">Contact</a>
+          </nav>
+
+        </div>
+      </header>
+
+      <!-- ===== HERO ===== -->
+      <section id="wp-hero">
+
+        <!-- Background -->
+        <div id="wp-hero-bg"></div>
+
+        <!-- left + bottom legibility scrim -->
+        <div class="wp-hero-scrim"></div>
+        <div class="wp-hero-scrim-btm"></div>
+
+        <!-- Bottom Left text (H2 + H1 + p + 2 buttons)-->
+        <div id="wp-hero-text">
+          <div class="wp-herotext1 wp-hero-textin">
+            <span id="wp-herodot"></span>
+            GAME DEVELOPER · SINCE 2018
+          </div>
+          <h1 class="wp-hero-textin">
+            Dior Zaverdino
+          </h1>
+          <p class="wp-hero-textin">
+            Gameplay Programmer, 3D Artist
+          </p>
+          <div class="wp-hero-buttons wp-hero-textin">
+            <a href="pages/gamelibrary.html" id="wp-hero-button1">
+              <span class="wp-ico wp-ico--22 wp-ico--dark">▶</span>
+              Projects
+            </a>
+            <a href="pages/contactpage.html" id="wp-hero-button2">
+              Contact me
+            </a>
+          </div>
+        </div>
+
+        <!-- scroll prompt 
+        <div id="wp-hero-scrollprompt">
+          SCROLL
+          <span class="wp-ico wp-ico--26 wp-ico--ring">↓</span>
+        </div> -->
+      </section>
+
+      <!-- ===== GAMES ===== -->
+      <section id="wp-games">
+
+        <div id="wp-games-bar"></div>
+
+        <!-- heading row -->
+        <div class="wp-reveal wp-games-head">
+          <div>
+            <div class="wp-eyebrow">
+              <span class="wp-eyebrow-dash"></span>
+              EXPLORE
+            </div>
+            <h2>Games</h2>
+          </div>
+          <div class="wp-games-head-right">
+            <span class="wp-games-meta">auto-scrolling · drag to explore</span>
+            <a href="pages/gamelibrary.html" class="wp-btn-outline">View all →</a>
+          </div>
+        </div>
+
+        <!-- side-scroll cards (auto-scroll + loop + drag) -->
+        <div class="wp-scroll wp-games-scroller wp-reveal">
+          <div class="wp-games-scroller-inner">
+
+          <template class="wp-card-template">
+            <a href="" class="wp-card-link wp-card">
+              <!-- card key art -->
+              <div class="wp-card-art">
+                <span class="wp-card-tag">Game Tag</span>
+              </div>
+              <!-- card body -->
+              <div class="wp-card-body">
+                <div class="wp-heading wp-card-title">Title</div>
+                <p class="wp-card-desc">Description</p>
+                <div class="wp-card-foot">
+                  <span class="wp-card-year">Year</span>
+                  <span class="wp-card-cta">View game
+                    <span class="wp-ico wp-ico--24 wp-ico--yellow">→</span>
+                  </span>
+                </div>
+              </div>
+            </a>
+          </template>
+
+          </div>
+        </div>
+
+        <!-- ===== ABOUT ===== -->
+        <div id="about" class="wp-reveal wp-about-wrap">
+          <div id="wp-about-grid">
+            <div>
+              <div class="wp-eyebrow">
+                <span class="wp-eyebrow-dash"></span>ABOUT ME
+              </div>
+              <h2 class="wp-heading wp-about-title">
+                Indie Game Developer
+              </h2>
+              <p class="wp-about-lead">
+                I'm Dior Zaverdino, a game designer and programmer based in South Africa.
+                As a generalist I have experience in: <br>
+                 - Game design, programming, 3D art, animation, and sound design. <br>
+                My primary engine is Unity, but I also have experience with Unreal Engine.
+              </p>
+              <p class="wp-about-text">
+                I've been an ambitious game designer since my early teens.
+                What started as a hobby turned into a fulltime goal.
+                That goal? Make cosy games people can enjoy with their friends.
+              </p>
+              <a href="pages/contactpage.html" class="wp-btn wp-btn--dark wp-cta-about">Contact me
+                <span class="wp-ico wp-ico--22 wp-ico--yellow">→</span>
+              </a>
+            </div>
+            <div class="wp-about-col">
+              <div id="wp-about-photo"></div>
+              <div class="wp-stat-row">
+                <div class="wp-stat">
+                  <div class="wp-heading wp-stat-num wp-stat-num--amber">14</div>
+                  <div class="wp-stat-label">PROJECTS</div>
+                </div>
+                <div class="wp-stat">
+                  <div class="wp-heading wp-stat-num wp-stat-num--green">8</div>
+                  <div class="wp-stat-label">YEARS EXPERIENCE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== FOOTER ===== -->
+      <footer class="wp-footer">
+        <div class="wp-reveal wp-footer-top">
+          <div class="wp-footer-brand">
+            <div class="wp-footer-logo">
+              <span class="wp-wordmark">Dior Zaverdino</span>
+            </div>
+            <p class="wp-footer-tag">Cozy, characterful
+              worlds — handcrafted since 2018.</p>
+          </div>
+          <div class="wp-footer-cols">
+            <div class="wp-footer-col">
+              <span class="wp-footer-coltitle">ITCH PROFILE</span>
+                <a href="https://abovetuna.itch.io/" class="wp-footer-link">Itch.io</a>
+            </div>
+            <div class="wp-footer-col">
+              <span class="wp-footer-coltitle">FOLLOW</span>
+              <a href="https://www.youtube.com/@abovetuna" class="wp-footer-link">YOUTUBE</a>
+              <a href="https://www.instagram.com/abovetuna/" class="wp-footer-link">INSTAGRAM</a>
+              <a href="https://twitter.com/abovetuna1" class="wp-footer-link">TWITTER</a>
+            </div>
+          </div>
+        </div>
+        <div class="wp-footer-bottom">
+          <span>© 2026 Dior Zaverdino. All rights reserved.</span>
+          <span class="wp-footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></span>
+        </div>
+      </footer>
+
+    </div>
+
+    <script src="scripts/home.js" type="module"></script>
+    <script src="scripts/data.js" type="module"></script>
+
+</body>
+
+</html>
