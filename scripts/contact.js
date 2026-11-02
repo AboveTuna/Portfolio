@@ -6,7 +6,7 @@
   if (!form) return;
 
   const status = document.getElementById('wp-contact-status');
-  const submitBtn = form.querySelector('.wp-contact-submit');
+  const TO_EMAIL = 'dior.zaverdino@gmail.com'; // same address as the mailto link on the page
 
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -72,26 +72,24 @@
       return;
     }
 
-    // No backend here — simulate an async send so the UX is complete.
-    submitBtn.disabled = true;
-    status.className = 'wp-contact-status';
-    status.textContent = 'Sending…';
-
+    // No backend on a static site, so hand the message to the visitor's own
+    // email app, pre-filled. (Swap this for a fetch() to a form service if one
+    // is set up later.)
+    const subjectSelect = fieldEl('subject');
     const data = {
       name: fieldEl('name').value.trim(),
       email: fieldEl('email').value.trim(),
-      subject: fieldEl('subject').value,
+      topic: subjectSelect.options[subjectSelect.selectedIndex].text,
       message: fieldEl('message').value.trim()
     };
 
-    setTimeout(function () {
-      // Replace this block with a real fetch() to your endpoint when available.
-      console.log('Contact form submission:', data);
+    const mailSubject = data.topic + ' — from ' + data.name;
+    const mailBody = data.message + '\n\n— ' + data.name + ' (' + data.email + ')';
+    window.location.href = 'mailto:' + TO_EMAIL +
+      '?subject=' + encodeURIComponent(mailSubject) +
+      '&body=' + encodeURIComponent(mailBody);
 
-      form.reset();
-      submitBtn.disabled = false;
-      status.className = 'wp-contact-status wp-contact-status--ok';
-      status.textContent = 'Thanks, ' + data.name + '! Your message has been sent.';
-    }, 900);
+    status.className = 'wp-contact-status wp-contact-status--ok';
+    status.textContent = 'Opening your email app… If nothing opens, email ' + TO_EMAIL + ' directly.';
   });
 })();

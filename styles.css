@@ -32,16 +32,6 @@ body {
     transform: translateY(30px);
     animation: wprise .85s cubic-bezier(.2, .7, .3, 1) both;
 }
-.wp-reveal.wp-in {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-@keyframes wprise {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
 
 
 /*=================================================================
@@ -167,7 +157,7 @@ body {
 #wp-hero-bg {
     position: absolute;
     inset: -5% -5% -5% -5%;
-    background-image: url('assets/hero-archer.png');
+    background-image: url('assets/hero-archer.jpg');
     background-size: cover;
     background-position: 72% center;
     will-change: transform;
@@ -197,8 +187,8 @@ body {
     will-change: transform, opacity;
 }
 .wp-hero-textin {
-    animation-delay: .25s;
     animation: wprise .85s cubic-bezier(.2, .7, .3, 1) both;
+    animation-delay: .25s;
 }
 .wp-herotext1 {
     display: inline-flex;
@@ -494,7 +484,6 @@ body {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
 
     display: flex;
     align-items: flex-end;
@@ -607,9 +596,18 @@ body {
     position: relative;
     box-shadow: 0 16px 36px rgba(95,118,72,.28);
 }
-.wp-about-emoji {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 56px;
+/* founder caption pinned to the photo's bottom-left (same pill as .wp-card-tag) */
+.wp-founder-tag {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    font-size: 13px;
+    color: #2c3320;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 7px 14px;
+    border-radius: 999px;
 }
 .wp-stat-row {
     display: flex;
@@ -740,7 +738,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background: var(--art);
+    background: #2c3320;
 }
 /* parallax background layer — translated on scroll by pagegame.js.
    Mirrors #wp-hero-bg: oversized + scaled so the translate never reveals edges */
@@ -755,6 +753,7 @@ body {
 }
 .wp-game-hero-scrim {
     position: absolute;
+    pointer-events: none;
     left: 0;
     right: 0;
     bottom: 0;
@@ -816,21 +815,23 @@ body {
     margin: 0;
     color: #6b7355;
     max-width: 56ch;
+    /* desc in data.js uses \n for line breaks and \n\n between paragraphs */
+    white-space: pre-line;
 }
-.wp-roles-label {
+.wp-tags-label {
     margin-top: 28px;
     font-size: 12.5px;
     font-weight: 700;
     letter-spacing: 1.5px;
     color: #a3a38c;
 }
-.wp-role-row {
+.wp-tag-row {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
     margin-top: 14px;
 }
-.wp-role {
+.wp-tag {
     background: #eef0e3;
     color: #4f5640;
     font-size: 13.5px;
@@ -863,6 +864,21 @@ body {
 .wp-detail-k { color: #8a8a72; }
 .wp-detail-v { font-weight: 700; text-align: right; }
 
+/* trailer */
+.wp-trailer-section {
+    padding: 0 0 clamp(44px, 6vw, 72px);
+}
+.wp-trailer {
+    display: block;
+    width: calc(100% - 2 * var(--wp-gutter));
+    max-width: 1100px;
+    margin: 0 var(--wp-gutter);
+    aspect-ratio: 16 / 9;
+    border-radius: 24px;
+    background: #2c3320;
+    box-shadow: 0 14px 32px rgba(44,51,32,.12);
+}
+
 /* screenshots */
 .wp-shots-section {
     padding: 8px 0 clamp(56px, 7vw, 88px);
@@ -875,6 +891,8 @@ body {
     gap: 18px;
     padding: 0 var(--wp-gutter) 22px;
     scroll-snap-type: x mandatory;
+    /* snap tiles to the page gutter, not the viewport edge */
+    scroll-padding-inline: var(--wp-gutter);
 }
 .wp-shot {
     scroll-snap-align: start;
@@ -890,6 +908,12 @@ body {
     position: relative;
     overflow: hidden;
     box-shadow: 0 14px 32px rgba(44,51,32,.12);
+}
+.wp-shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* footer */
@@ -1103,7 +1127,7 @@ select.wp-input {
 /* vertical, wrapping grid — auto-fills rows of cards */
 .wp-library-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
     gap: clamp(20px, 2.6vw, 30px);
 }
 /* card sizing override: the shared .wp-card is built for the horizontal
@@ -1111,11 +1135,6 @@ select.wp-input {
 .wp-library-grid .wp-card {
     flex: initial;
     width: 100%;
-}
-/* art is shared with the scroller (background-attachment: fixed); in a
-   multi-row grid that crops oddly, so pin each card's art to itself */
-.wp-library-grid .wp-card-art {
-    background-attachment: scroll !important;
 }
 
 
@@ -1135,17 +1154,6 @@ select.wp-input {
 
     50% {
         transform: translateY(6px);
-    }
-}
-@keyframes wpfloat {
-
-    0%,
-    100% {
-        transform: translateY(0) rotate(0deg);
-    }
-
-    50% {
-        transform: translateY(-10px) rotate(3deg);
     }
 }
 @keyframes wprise {
@@ -1187,23 +1195,13 @@ select.wp-input {
 
 /* ---- responsive: stack columns, text on its own line ---- */
 @media (max-width: 760px) {
-    #wp-nav {
-        display: flex !important;
-        flex-wrap: wrap;
-        justify-content: center;
-        row-gap: 9px;
-        column-gap: 12px;
-    }
-
-    #wp-nav .wp-logo {
-        order: -1;
-        flex-basis: 100%;
-        justify-content: center;
-    }
-
     #wp-about-grid {
         grid-template-columns: 1fr !important;
         text-align: left;
+    }
+
+    #wp-detail-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1211,4 +1209,15 @@ select.wp-input {
     #wp-about-photo {
         aspect-ratio: 16/10 !important;
     }
+
+    /* nav: logo gets its own row, the links/buttons share the row below */
+    #wp-navbar {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "logo logo" "left right";
+        row-gap: 4px;
+        padding: 8px 12px;
+    }
+    #wp-logo { grid-area: logo; }
+    .wp-navL { grid-area: left; }
+    .wp-navR { grid-area: right; }
 }

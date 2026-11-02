@@ -1,23 +1,19 @@
 
 // Parallax scroll effect
+const heroBg = document.getElementById('wp-hero-bg');
 window.addEventListener('scroll', function() {
-  // Get current vertical scroll position
-  const scrollPosition = window.pageYOffset;
-
-  // Select parallax background element and apply transform based on scroll position
-  const bg = document.getElementById('wp-hero-bg');
   const speed = -0.3; // Adjust this value for different parallax speeds
-  const yPos = -(scrollPosition * speed);
-  bg.style.transform = `translateY(${yPos}px)`;
-
-});
+  const yPos = -(window.scrollY * speed);
+  // keep the CSS scale(1.06) so the layer stays oversized while it moves
+  heroBg.style.transform = `translateY(${yPos}px) scale(1.06)`;
+}, { passive: true });
 
 // Game Scrollbar
 
 const scrollbar = document.querySelector(".wp-games-scroller-inner");
 const gameTemplate = document.querySelector(".wp-card-template");
 
-import { games, gameArt, gameHref } from "./data.js"; // Import the games array from data.js
+// games, gameArt, gameHref come from data.js (loaded before this script)
 
 // index.html lives at the site root, so paths resolve with no prefix.
 const BASE = "";
@@ -31,7 +27,6 @@ function appendGameCards() {
     gameCard.querySelector(".wp-card-art").style.backgroundSize = "cover";
     gameCard.querySelector(".wp-card-art").style.backgroundPosition = "center";
     gameCard.querySelector(".wp-card-art").style.backgroundRepeat = "no-repeat";
-    gameCard.querySelector(".wp-card-art").style.backgroundAttachment = "fixed";
 
     gameCard.querySelector(".wp-card-title").textContent = game.title;
     gameCard.querySelector(".wp-card-tag").textContent = game.tag;
@@ -57,8 +52,22 @@ function measureLoopWidth() {
   }
 }
 measureLoopWidth();
+
+// With only a few games, two copies can be narrower than a wide screen, leaving
+// an empty gap just before the loop wraps. Keep adding copies until the track
+// covers one full loop plus the viewport.
+function fillTrack() {
+  while (loopWidth > 0 && scrollbar.offsetWidth < loopWidth + window.innerWidth) {
+    appendGameCards();
+  }
+}
+fillTrack();
+
 // Card widths are fixed, but remeasure on resize in case layout shifts.
-window.addEventListener("resize", measureLoopWidth);
+window.addEventListener("resize", () => {
+  measureLoopWidth();
+  fillTrack();
+});
 
 /* --- CLICK AND DRAG CORE ENGINE --- */
 
@@ -72,9 +81,7 @@ let startX;                   // pointer x captured at the moment a drag begins
 
 // Mouse Enters the Container Window
 scrollbar.addEventListener("mouseenter", () => {
-  isHovering = true;
-  // Pause the auto-scroll when the user hovers over the container
-  scrollbar.style.animationPlayState = "paused";
+  isHovering = true; // pauses the auto-scroll (see updateLoop)
 });
 // Mouse Leaves the Container Window
 scrollbar.addEventListener("mouseleave", () => {
@@ -128,6 +135,9 @@ scrollbar.addEventListener("click", (e) => {
   }
 }, true);
 
+// Visitors who ask their OS for reduced motion get a still row they can drag.
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
 let lastTime = 0;
 function updateLoop(currentTime) {
 
@@ -135,7 +145,7 @@ function updateLoop(currentTime) {
   lastTime = currentTime;
 
   // Auto-scroll only when the user is neither dragging nor hovering
-  if (!isNaN(deltaTime) && deltaTime < 0.1 && !isDown && !isHovering) {
+  if (!isNaN(deltaTime) && deltaTime < 0.1 && !isDown && !isHovering && !reduceMotion.matches) {
     //Multiply your value by deltaTime
     currentTranslate -= deltaTime * 60; // Adjust the multiplier for speed
   }

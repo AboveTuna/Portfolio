@@ -2,8 +2,8 @@
 // Game Library page — reuses the same games data + card template as the
 // home page, but lays the cards out in a vertical, wrapping grid instead
 // of the horizontal auto-scroller.
-
-import { games, gameArt, gameHref } from "./data.js"; // same source of truth as index.html
+// games, gameArt, gameHref come from data.js (loaded before this script) —
+// same source of truth as index.html.
 
 // gamelibrary.html lives in pages/, so paths resolve one level up.
 const BASE = "../";
