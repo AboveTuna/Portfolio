@@ -29,8 +29,8 @@ if (game) {
     document.querySelector(".wp-game-lead").textContent = game.lead;
     document.querySelector(".wp-game-text").textContent = game.desc;
 
-    // Every store button (Play Now + both Wishlist buttons) goes to this game's page.
-    document.querySelectorAll(".wp-cta-buy, .wp-cta-wishlist, .wp-cta-navwish").forEach((a) => {
+    // Both store buttons (Play Now + the hero's Wishlist now) go to this game's page.
+    document.querySelectorAll(".wp-cta-buy, .wp-cta-wishlist").forEach((a) => {
         a.setAttribute("href", game.link);
     });
     if (game.developer) document.querySelector(".wp-detail-developer").textContent = game.developer;

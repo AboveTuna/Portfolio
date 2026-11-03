@@ -104,7 +104,6 @@ body {
 .wp-cta-about:hover { transform: translateY(-3px); }
 .wp-cta-wishlist { padding: 16px 28px; font-weight: 700; font-size: 15.5px; box-shadow: 0 12px 28px rgba(44,51,32,.3); }
 .wp-cta-trailer  { gap: 9px; padding: 15px 24px; font-size: 15px; }
-.wp-cta-navwish  { padding: 9px 20px; font-weight: 700; font-size: 14px; }
 /* full-width buy button keeps its own block layout */
 .wp-cta-buy {
     display: flex;
